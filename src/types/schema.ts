@@ -39,13 +39,21 @@ export class Domain extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get labelhash(): Bytes {
+  get labelhash(): Bytes | null {
     let value = this.get("labelhash");
-    return value.toBytes();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  set labelhash(value: Bytes) {
-    this.set("labelhash", Value.fromBytes(value));
+  set labelhash(value: Bytes | null) {
+    if (value === null) {
+      this.unset("labelhash");
+    } else {
+      this.set("labelhash", Value.fromBytes(value as Bytes));
+    }
   }
 
   get parent(): string | null {
@@ -97,6 +105,40 @@ export class Domain extends Entity {
       this.unset("resolver");
     } else {
       this.set("resolver", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get contentHash(): Bytes | null {
+    let value = this.get("contentHash");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set contentHash(value: Bytes | null) {
+    if (value === null) {
+      this.unset("contentHash");
+    } else {
+      this.set("contentHash", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get address(): Bytes | null {
+    let value = this.get("address");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set address(value: Bytes | null) {
+    if (value === null) {
+      this.unset("address");
+    } else {
+      this.set("address", Value.fromBytes(value as Bytes));
     }
   }
 

@@ -12,6 +12,8 @@ import { NewOwner, Transfer as TransferEvent, NewResolver, NewTTL } from './type
 // Import entity types generated from the GraphQL schema
 import { Domain, Account } from './types/schema'
 
+import { Resolver } from './types/ENSRegistrar/Resolver'
+
 // Handler for NewOwner events
 export function newOwner(event: NewOwner): void {
   let subnode = crypto.keccak256(concat(event.params.node, event.params.label)).toHex()
@@ -57,8 +59,11 @@ export function transfer(event: TransferEvent): void {
 export function newResolver(event: NewResolver): void {
   let node = event.params.node.toHex()
 
+  let resolverContract = Resolver.bind(event.params.resolver)
   let domain = new Domain(node)
   domain.resolver = event.params.resolver
+  domain.contentHash = resolverContract.contenthash(event.params.node)
+  domain.address = resolverContract.addr(event.params.node)
   domain.save()
 }
 

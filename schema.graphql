@@ -5,6 +5,8 @@ type Domain @entity {
   subdomains: [Domain!]! @derivedFrom(field: "parent")
   owner: Account!
   resolver: Bytes
+  contentHash: Bytes
+  address: Bytes
   ttl: Int
 }
 

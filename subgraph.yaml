@@ -20,6 +20,8 @@ dataSources:
       abis:
         - name: EnsRegistrar
           file: ./abis/EtherscanAbi.json
+        - name: Resolver
+          file: ./abis/ResolverAbi.json
       eventHandlers:
         - event: Transfer(bytes32,address)
           handler: transfer
@@ -29,3 +31,4 @@ dataSources:
           handler: newResolver
         - event: NewTTL(bytes32,uint64)
           handler: newTTL
+          
